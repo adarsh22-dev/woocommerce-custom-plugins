@@ -1,0 +1,31 @@
+@font-face {
+  font-family: "DancingScript";
+  src: url("../assets/fonts/DancingScript-VariableFont_wght.ttf")
+    format("truetype");
+}
+
+@font-face {
+  font-family: "MeieScript";
+  src: url("../assets/fonts/MeieScript-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Pacifico";
+  src: url("../assets/fonts/Pacifico-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Quintessential";
+  src: url("../assets/fonts/Quintessential-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "StoryScript";
+  src: url("../assets/fonts/StoryScript-Regular.ttf") format("truetype");
+}
+#wpwrap #wpcontent:has(#ecommreels-admin-app) {
+  padding-left: 0 !important;
+}
+html[dir="rtl"] #wpwrap #wpcontent:has(#ecommreels-admin-app) {
+  padding-right: 0 !important;
+}

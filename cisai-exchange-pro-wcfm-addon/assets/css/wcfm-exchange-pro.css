@@ -1,0 +1,57 @@
+/* WCFM-friendly Exchange Pro fields */
+.cisai-expro-notice{
+  padding:12px;
+  background:#fff3cd;
+  border:1px solid #ffeeba;
+  border-radius:6px;
+  margin: 10px 0;
+}
+
+.cisai-expro-wrap{ max-width: 980px; }
+.cisai-expro-title{ margin: 6px 0 14px; }
+
+.cisai-expro-field{ margin: 12px 0; }
+.cisai-expro-help{ font-size: 13px; color:#666; margin: 6px 0; }
+.cisai-expro-sub{ font-weight:400; color:#555; margin-left:6px; }
+
+.cisai-expro-checkbox{ display:flex; align-items:center; gap:8px; }
+.cisai-expro-radio{ display:block; margin: 6px 0; }
+
+.cisai-expro-wrap input[type="number"],
+.cisai-expro-wrap select{
+  width: 100%;
+  max-width: 520px;
+  padding: 8px 10px;
+  border: 1px solid #cfcfcf;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.cisai-expro-multi{ min-height: 120px; max-width: 520px; }
+
+.cisai-expro-custom{ margin-top: 16px; padding: 12px; border:1px solid #e5e5e5; border-radius:8px; background:#fff; }
+.cisai-expro-tip{ margin: 10px 0; color:#555; font-size:13px; }
+
+.cisai-expro-row{ padding: 12px; border:1px solid #ddd; border-radius:8px; background:#fafafa; margin-top: 12px; }
+.cisai-expro-row-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.cisai-expro-row-grid.prices{ grid-template-columns: 1fr 1fr 1fr 1fr; margin-top: 10px; }
+.cisai-expro-row-actions{ margin-top: 10px; }
+.cisai-expro-remove-row{ background:#dc3545 !important; border-color:#dc3545 !important; color:#fff !important; }
+
+@media (max-width: 900px){
+  .cisai-expro-row-grid.prices{ grid-template-columns: 1fr 1fr; }
+}
+
+
+/* Make checkbox visible in WCFM (some themes override it) */
+.cisai-expro-wrap input[type="checkbox"]{
+  appearance: auto !important;
+  -webkit-appearance: checkbox !important;
+  width: 18px !important;
+  height: 18px !important;
+  background: #fff !important;
+  border: 1px solid #333 !important;
+  border-radius: 3px !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+}

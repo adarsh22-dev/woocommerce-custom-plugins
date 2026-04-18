@@ -1,0 +1,206 @@
+.reelswp-deactivation-popup {
+    position: fixed;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    opacity: 1;
+    visibility: visible;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+}
+
+.reelswp-deactivation-popup.reelswp-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.reelswp-deactivation-popup .reelswp-overlay {
+    position: relative;
+    padding: 20px;
+    background: #fff;
+    overflow: auto;
+    max-height: 90%;
+    max-width: 90%;
+    border-radius: 10px;
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+}
+
+.reelswp-deactivation-popup * {
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.reelswp-deactivation-popup .reelswp-close {
+    cursor: pointer;
+    position: absolute;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    top: 6px;
+    right: 6px;
+    width: 30px;
+    height: 30px;
+    color: #252c59;
+    background: #f7f7f7;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.reelswp-deactivation-popup .reelswp-body {
+    position: relative;
+    display: block;
+    max-width: 360px;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.reelswp-deactivation-popup .reelswp-body .reelswp-title-wrap {
+    position: relative;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 15px;
+    color: #1d2327;
+}
+
+.reelswp-deactivation-popup .reelswp-img-wrap {
+    margin-right: 10px;
+}
+
+.reelswp-deactivation-popup img {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+.reelswp-deactivation-popup .reelswp-body > div {
+    margin-bottom: 15px;
+}
+
+.reelswp-deactivation-popup .reelswp-messages-wrap p,  
+.reelswp-deactivation-popup .reelswp-checkbox-label, 
+.reelswp-deactivation-popup .reelswp-skip-btn {
+    margin: 5px 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #646970;
+}
+
+.reelswp-deactivation-popup .reelswp-options-wrap :not([type="radio"]):not([type="checkbox"]) {
+    width: 100%;
+}
+
+.reelswp-deactivation-popup .reelswp-options-wrap .reelswp-textarea {
+    max-height: 150px;
+    min-height: 50px;
+    padding: 8px 12px;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    font-size: 14px;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.reelswp-deactivation-popup .reelswp-options-wrap .reelswp-textarea:focus {
+    border-color: #2271b1;
+    outline: none;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+.reelswp-deactivation-popup .reelswp-body .reelswp-options-wrap {
+    padding: 15px;
+    border-radius: 10px;
+    background: #f3f3f3;
+}
+
+.reelswp-deactivation-popup .reelswp-body .reelswp-options-wrap.dennsimc-anonymous {
+    background: #fff;
+    padding: 10px 0;
+}
+
+.reelswp-deactivation-popup .reelswp-option-label,
+.reelswp-deactivation-popup .reelswp-textarea-label {
+    display: block;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #2c3338;
+    line-height: 1.4;
+}
+
+.reelswp-deactivation-popup .reelswp-option-label:last-child,
+.reelswp-deactivation-popup .reelswp-checkbox-label:last-child,
+.reelswp-deactivation-popup .reelswp-textarea-label:last-child {
+    margin-bottom: 0;
+}
+
+.reelswp-deactivation-popup .reelswp-radio,
+.reelswp-deactivation-popup .reelswp-checkbox {
+    margin-right: 8px;
+}
+
+.reelswp-deactivation-popup input[type=radio]:checked::before
+{
+    background-color: #1b152e;
+}
+
+.reelswp-deactivation-popup input[type=radio]:focus {
+    box-shadow: none;
+}   
+
+/* Buttons Styling */
+.reelswp-deactivation-popup .reelswp-buttons-wrap {
+    text-align: right;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.reelswp-deactivation-popup .reelswp-btn {
+    border: 0px solid;
+    padding: 5px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.reelswp-skip-btn {
+    color: rgb(60, 67, 74);
+    font-weight: normal !important;
+    background: transparent;
+}
+
+.reelswp-submit-btn {
+    color: #fff;
+    background-color: #1b152e;
+}
+
+/* Hidden state */
+.reelswp-hidden {
+    display: none !important;
+}

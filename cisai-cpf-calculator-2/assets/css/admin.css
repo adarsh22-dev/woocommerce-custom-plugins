@@ -1,0 +1,499 @@
+/* CISAI CPF Admin Styles */
+
+.cisai-cpf-dashboard-wrap {
+    background: #f0f0f1;
+    margin: -20px -20px 0 0;
+    padding: 40px;
+}
+
+.cisai-cpf-subtitle {
+    color: #646970;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 30px;
+}
+
+/* Section Styles */
+.cisai-cpf-section {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.cisai-cpf-section-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 24px 30px;
+}
+
+.cisai-cpf-section-header h2 {
+    color: #fff;
+    font-size: 24px;
+    margin: 0 0 8px;
+    font-weight: 600;
+}
+
+.cisai-cpf-section-header p {
+    color: rgba(255,255,255,0.9);
+    font-size: 14px;
+    margin: 0;
+}
+
+.cisai-cpf-section-body {
+    padding: 30px;
+}
+
+/* Badge */
+.cisai-cpf-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.cisai-cpf-badge.cisai-cpf-live {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+/* Config Grid */
+.cisai-cpf-config-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.cisai-cpf-config-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.cisai-cpf-config-card {
+    background: #1e293b;
+    border-radius: 8px;
+    padding: 20px;
+    color: #fff;
+}
+
+.cisai-cpf-config-card label {
+    display: block;
+    color: #94a3b8;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.cisai-cpf-value-large {
+    font-size: 48px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.cisai-cpf-value-medium {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.cisai-cpf-unit {
+    font-size: 0.6em;
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+/* Architect Tip */
+.cisai-cpf-architect-tip {
+    background: #fef3c7;
+    border-left: 4px solid #f59e0b;
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 24px;
+    display: flex;
+    gap: 12px;
+}
+
+.cisai-cpf-tip-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.cisai-cpf-tip-content strong {
+    display: block;
+    color: #92400e;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.cisai-cpf-tip-content p {
+    color: #78350f;
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Metrics Grid */
+.cisai-cpf-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.cisai-cpf-metric-card {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+
+.cisai-cpf-metric-card label {
+    display: block;
+    color: #6b7280;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.cisai-cpf-metric-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.cisai-cpf-metric-value.cisai-cpf-negative {
+    color: #ef4444;
+}
+
+/* Chart Section */
+.cisai-cpf-chart-section {
+    background: #f9fafb;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 30px;
+}
+
+.cisai-cpf-chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.cisai-cpf-chart-header h3 {
+    margin: 0 0 4px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.cisai-cpf-chart-header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.cisai-cpf-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #1f2937;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cisai-cpf-toggle-btn:hover {
+    background: #111827;
+}
+
+.cisai-cpf-indicator {
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.cisai-cpf-chart-legend {
+    display: flex;
+    gap: 24px;
+    margin-top: 16px;
+}
+
+.cisai-cpf-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.cisai-cpf-legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+}
+
+.cisai-cpf-cpf-color {
+    background: #10b981;
+}
+
+.cisai-cpf-net-color {
+    background: #667eea;
+}
+
+/* Optimization Section */
+.cisai-cpf-optimization-section {
+    background: #1e293b;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 30px;
+}
+
+.cisai-cpf-optimization-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    color: #f97316;
+}
+
+.cisai-cpf-optimization-header h3 {
+    margin: 0;
+    color: #f97316;
+    font-size: 18px;
+}
+
+.cisai-cpf-optimization-alerts {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cisai-cpf-alert {
+    display: flex;
+    gap: 16px;
+    background: #334155;
+    border-radius: 8px;
+    padding: 16px;
+    border-left: 4px solid;
+}
+
+.cisai-cpf-alert-warning {
+    border-left-color: #f59e0b;
+}
+
+.cisai-cpf-alert-danger {
+    border-left-color: #ef4444;
+}
+
+.cisai-cpf-alert-success {
+    border-left-color: #10b981;
+}
+
+.cisai-cpf-alert-number {
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.cisai-cpf-alert-content h4 {
+    margin: 0 0 4px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.cisai-cpf-alert-content p {
+    margin: 0;
+    color: #cbd5e1;
+    font-size: 13px;
+}
+
+/* Scenarios */
+.cisai-cpf-scenarios-section h3 {
+    margin: 0 0 20px;
+    font-size: 18px;
+}
+
+.cisai-cpf-scenarios-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.cisai-cpf-scenario-card {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.cisai-cpf-scenario-header {
+    background: #fff;
+    padding: 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.cisai-cpf-scenario-label {
+    display: block;
+    color: #6b7280;
+    font-size: 11px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.cisai-cpf-scenario-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.cisai-cpf-scenario-body {
+    padding: 16px;
+}
+
+.cisai-cpf-scenario-result {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cisai-cpf-scenario-result-label {
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.cisai-cpf-scenario-result-value {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.cisai-cpf-scenario-result-value.cisai-cpf-profit {
+    color: #10b981;
+}
+
+.cisai-cpf-scenario-result-value.cisai-cpf-loss {
+    color: #ef4444;
+}
+
+/* Order Data */
+.cisai-cpf-order-data {
+    margin: 20px 0;
+    padding: 16px;
+    background: #f9fafb;
+    border-radius: 8px;
+}
+
+.cisai-cpf-order-data h3 {
+    margin: 0 0 16px;
+    font-size: 16px;
+}
+
+.cisai-cpf-order-table {
+    width: 100%;
+}
+
+.cisai-cpf-order-table th {
+    text-align: left;
+    padding: 8px 0;
+    color: #6b7280;
+    font-weight: 600;
+}
+
+.cisai-cpf-order-table td {
+    padding: 8px 0;
+}
+
+.cisai-cpf-platform-net.profitable th,
+.cisai-cpf-platform-net.profitable td {
+    color: #10b981;
+}
+
+.cisai-cpf-platform-net.loss th,
+.cisai-cpf-platform-net.loss td {
+    color: #ef4444;
+}
+
+.cisai-cpf-status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    margin-left: 8px;
+}
+
+.cisai-cpf-status-badge.cisai-cpf-profit {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.cisai-cpf-status-badge.cisai-cpf-loss {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+/* Settings Page */
+.cisai-cpf-settings-wrap {
+    max-width: 1200px;
+}
+
+.cisai-cpf-settings-section {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    padding: 24px;
+    margin: 20px 0;
+}
+
+.cisai-cpf-settings-section h2 {
+    margin: 0 0 20px;
+    font-size: 18px;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 12px;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .cisai-cpf-metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .cisai-cpf-scenarios-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .cisai-cpf-config-grid,
+    .cisai-cpf-config-grid-3,
+    .cisai-cpf-metrics-grid,
+    .cisai-cpf-scenarios-grid {
+        grid-template-columns: 1fr;
+    }
+}

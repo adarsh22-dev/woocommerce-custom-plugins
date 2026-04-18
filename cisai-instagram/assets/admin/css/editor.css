@@ -1,0 +1,11 @@
+.elementor-element .reelswp-icon:before {
+  content: "";
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: left center;
+  width: 36px;
+  height: 24px;
+  margin: auto;
+  display: block;
+  background-image: url("../../images/reels-wp.svg");
+}

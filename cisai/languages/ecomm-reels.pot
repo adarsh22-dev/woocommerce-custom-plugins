@@ -1,0 +1,148 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ecommreels\n"
+"POT-Creation-Date: 2024-11-26 11:13+0600\n"
+"PO-Revision-Date: 2023-02-01 11:39+0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.3.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;esc_html__\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: assets\n"
+"X-Poedit-SearchPathExcluded-1: node_modules\n"
+"X-Poedit-SearchPathExcluded-2: build\n"
+"X-Poedit-SearchPathExcluded-3: src\n"
+
+#: admin/class-story-admin.php:26 admin/class-story-admin.php:27
+#: admin/class-story-admin.php:36 admin/class-story-admin.php:37
+msgid "ecommreels"
+msgstr ""
+
+#: admin/class-story-admin.php:45 admin/class-story-admin.php:46
+msgid "Add New Reel"
+msgstr ""
+
+#: admin/class-story-admin.php:54 admin/class-story-admin.php:55
+msgid "Settings"
+msgstr ""
+
+#: admin/class-story-admin.php:71
+msgid "You are not allowed to access this page."
+msgstr ""
+
+#: admin/class-story-admin.php:139
+msgid "Settings saved."
+msgstr ""
+
+#: admin/class-story-admin.php:190
+msgid "Invalid reel ID."
+msgstr ""
+
+#: api/class-create-story.php:45 api/class-delete-story.php:35
+msgid "Unauthorized request"
+msgstr ""
+
+#: api/class-create-story.php:51
+msgid "User not authenticated"
+msgstr ""
+
+#: api/class-create-story.php:64
+msgid "Missing required fields"
+msgstr ""
+
+#: api/class-create-story.php:70
+msgid "Invalid JSON data for group_stories"
+msgstr ""
+
+#: api/class-create-story.php:92
+msgid "Error updating story"
+msgstr ""
+
+#: api/class-create-story.php:97
+msgid "Story updated successfully"
+msgstr ""
+
+#: api/class-create-story.php:113
+msgid "Error creating story"
+msgstr ""
+
+#: api/class-create-story.php:118
+msgid "Story created successfully"
+msgstr ""
+
+#: api/class-delete-story.php:40
+msgid "Permission denied"
+msgstr ""
+
+#: api/class-delete-story.php:50 api/class-story-views.php:54
+msgid "Story not found"
+msgstr ""
+
+#: api/class-delete-story.php:60
+msgid "Error deleting story"
+msgstr ""
+
+#: api/class-delete-story.php:63
+msgid "Story deleted successfully"
+msgstr ""
+
+#: api/class-single-story-info.php:29
+msgid "Invalid story ID"
+msgstr ""
+
+#: api/class-single-story-info.php:40 api/class-stories-info.php:31
+#: api/class-story-views.php:43
+msgid "No stories found"
+msgstr ""
+
+#: api/class-single-story-info.php:47 api/class-store-clicks.php:61
+#: api/class-story-views.php:48
+msgid "Invalid JSON format in group_stories"
+msgstr ""
+
+#: api/class-single-story-info.php:51
+msgid "Stories or styles are missing in the data"
+msgstr ""
+
+#: api/class-store-clicks.php:40
+msgid "Rate limit exceeded for this story. Please try again later."
+msgstr ""
+
+#: api/class-store-clicks.php:52
+msgid "Group not found"
+msgstr ""
+
+#: api/class-store-clicks.php:68
+msgid "Story not found or no updates were made."
+msgstr ""
+
+#: api/class-store-clicks.php:83
+msgid "Database error"
+msgstr ""
+
+#: api/class-store-clicks.php:88
+msgid "Click saved"
+msgstr ""
+
+#: api/class-story-views.php:34
+msgid "Invalid group ID"
+msgstr ""
+
+#: api/class-story-views.php:38
+msgid "You have reached the view limit"
+msgstr ""
+
+#: api/class-story-views.php:68
+msgid "Database update failed"
+msgstr ""
+
+#: api/class-story-views.php:73
+msgid "Story views updated successfully"
+msgstr ""

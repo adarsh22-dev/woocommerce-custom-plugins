@@ -1,0 +1,251 @@
+/* CISAI CPF Frontend Styles */
+
+.cisai-cpf-breakdown {
+    margin: 20px 0;
+    animation: cisai-cpf-fade-in 0.3s ease-in;
+}
+
+@keyframes cisai-cpf-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Detailed Breakdown */
+.cisai-cpf-detailed {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.cisai-cpf-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cisai-cpf-icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cisai-cpf-icon svg {
+    stroke: #fff;
+}
+
+.cisai-cpf-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.cisai-cpf-body {
+    padding: 20px;
+}
+
+.cisai-cpf-formula {
+    background: #f9fafb;
+    border: 1px dashed #d1d5db;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.cisai-cpf-formula-text {
+    font-family: monospace;
+    font-size: 14px;
+    color: #374151;
+}
+
+.cisai-cpf-formula-text strong {
+    color: #667eea;
+    font-weight: 700;
+}
+
+.cisai-cpf-details {
+    margin-top: 16px;
+}
+
+.cisai-cpf-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.cisai-cpf-row:last-child {
+    border-bottom: none;
+}
+
+.cisai-cpf-row.cisai-cpf-total {
+    border-top: 2px solid #e5e7eb;
+    padding-top: 12px;
+    margin-top: 8px;
+}
+
+.cisai-cpf-label {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.cisai-cpf-value {
+    color: #111827;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.cisai-cpf-info {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.cisai-cpf-toggle {
+    background: none;
+    border: none;
+    color: #667eea;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.cisai-cpf-toggle:hover {
+    color: #5568d3;
+}
+
+.cisai-cpf-toggle svg {
+    stroke: currentColor;
+    flex-shrink: 0;
+}
+
+.cisai-cpf-covers {
+    margin-top: 12px;
+    background: #f9fafb;
+    border-radius: 6px;
+    padding: 12px 16px;
+}
+
+.cisai-cpf-covers ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cisai-cpf-covers li {
+    color: #374151;
+    font-size: 13px;
+    padding: 4px 0;
+}
+
+/* Minimal Breakdown */
+.cisai-cpf-minimal {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 12px 16px;
+}
+
+.cisai-cpf-formula-minimal {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #374151;
+}
+
+.cisai-cpf-formula-minimal strong {
+    color: #667eea;
+    font-weight: 700;
+}
+
+/* Tooltip Breakdown */
+.cisai-cpf-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.cisai-cpf-tooltip-trigger {
+    position: relative;
+    cursor: help;
+}
+
+.cisai-cpf-tooltip-trigger svg {
+    stroke: #667eea;
+}
+
+.cisai-cpf-tooltip-content {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1f2937;
+    color: #fff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    min-width: 250px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.cisai-cpf-tooltip-content::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #1f2937;
+}
+
+.cisai-cpf-tooltip-content p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.cisai-cpf-tooltip-content p:first-child {
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.cisai-cpf-tooltip-trigger:hover .cisai-cpf-tooltip-content {
+    display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .cisai-cpf-formula-text {
+        font-size: 12px;
+    }
+    
+    .cisai-cpf-row {
+        font-size: 13px;
+    }
+    
+    .cisai-cpf-tooltip-content {
+        min-width: 200px;
+        left: auto;
+        right: 0;
+        transform: none;
+    }
+}
