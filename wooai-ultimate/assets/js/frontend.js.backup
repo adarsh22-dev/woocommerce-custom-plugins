@@ -1,0 +1,638 @@
+(function($) {
+    'use strict';
+    
+    const WooAI = {
+        config: wooaiConfig,
+        
+        init() {
+            this.setupWidget();
+            this.bindEvents();
+            this.displayGreeting();
+            this.displayActions();
+            this.applyColors();
+            this.initGeolocation();
+        },
+        
+        setupWidget() {
+            this.$widget = $('#wooai-widget');
+            this.$window = $('#wooai-window');
+            this.$messages = $('#wooai-messages');
+            this.$input = $('#wooai-input');
+            this.$sendBtn = $('#wooai-send');
+            this.$toggleBtn = $('#wooai-toggle');
+            this.$closeBtn = $('#wooai-close');
+        },
+        
+        bindEvents() {
+            this.$toggleBtn.on('click', () => this.toggleWidget());
+            this.$closeBtn.on('click', () => this.toggleWidget());
+            this.$sendBtn.on('click', () => this.sendMessage());
+            this.$input.on('keypress', (e) => {
+                if (e.which === 13) this.sendMessage();
+            });
+        },
+        
+        toggleWidget() {
+            this.$widget.toggleClass('wooai-closed');
+            if (!this.$widget.hasClass('wooai-closed')) {
+                this.$input.focus();
+            }
+        },
+        
+        applyColors() {
+            document.documentElement.style.setProperty('--wooai-primary', this.config.color);
+        },
+        
+        displayGreeting() {
+            $('#wooai-greeting').text(this.config.greeting);
+        },
+        
+        initGeolocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    this.config.geolocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                });
+            }
+        },
+        
+        displayActions() {
+            const $container = $('#wooai-actions');
+            $container.empty();
+            
+            this.config.actions.forEach(action => {
+                const iconHtml = action.icon.startsWith('http') 
+                    ? `<img src="${action.icon}" style="width: 24px; height: 24px; object-fit: contain;">` 
+                    : `<span>${action.icon}</span>`;
+                
+                const $btn = $(`
+                    <button class="wooai-action-btn" data-action="${action.action_type}">
+                        <span class="wooai-action-icon">${iconHtml}</span>
+                        <span>${action.label}</span>
+                    </button>
+                `);
+                
+                $btn.on('click', () => this.handleAction(action.action_type));
+                $container.append($btn);
+            });
+        },
+        
+        handleAction(type) {
+            switch (type) {
+                case 'bestselling':
+                case 'recommended':
+                case 'new_arrivals':
+                case 'offers':
+                    this.getProducts(type);
+                    break;
+                case 'search':
+                    this.showProductSearch();
+                    break;
+                case 'callback':
+                    this.showCallbackForm();
+                    break;
+                case 'policies':
+                    this.showPolicies();
+                    break;
+                case 'account':
+                    this.showMyAccountInChat();
+                    break;
+                case 'orders':
+                    this.showOrdersInChat();
+                    break;
+                default:
+                    this.sendMessageToAI(type);
+            }
+        },
+        
+        showProductSearch() {
+            const $searchBox = $(`
+                <div class="wooai-product-search-box">
+                    <div class="wooai-search-header">
+                        <input type="text" id="wooai-product-search-input" 
+                               placeholder="🔍 Search products..." class="wooai-search-input" />
+                    </div>
+                    <div id="wooai-search-results" class="wooai-search-results">
+                        <p style="text-align:center; color:#6B7280; padding:20px;">
+                            Type to search products...
+                        </p>
+                    </div>
+                </div>
+            `);
+            
+            this.$messages.append($searchBox);
+            this.scrollToBottom();
+            
+            let searchTimeout;
+            $('#wooai-product-search-input').on('input', function() {
+                const query = $(this).val().trim();
+                
+                clearTimeout(searchTimeout);
+                
+                if (query.length < 2) {
+                    $('#wooai-search-results').html('<p style="text-align:center; color:#6B7280; padding:20px;">Type at least 2 characters...</p>');
+                    return;
+                }
+                
+                searchTimeout = setTimeout(() => {
+                    WooAI.searchProducts(query);
+                }, 500);
+            }).focus();
+        },
+        
+        searchProducts(query) {
+            $('#wooai-search-results').html('<p style="text-align:center; color:#6B7280; padding:20px;">Searching...</p>');
+            
+            $.ajax({
+                url: this.config.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'wooai_search_products',
+                    nonce: this.config.nonce,
+                    query: query,
+                    session_id: this.config.session_id
+                },
+                success: (response) => {
+                    if (response.success && response.data.products.length > 0) {
+                        this.displaySearchResults(response.data.products);
+                    } else {
+                        $('#wooai-search-results').html('<p style="text-align:center; color:#6B7280; padding:20px;">No products found</p>');
+                    }
+                },
+                error: () => {
+                    $('#wooai-search-results').html('<p style="text-align:center; color:#EF4444; padding:20px;">Search failed. Try again.</p>');
+                }
+            });
+        },
+        
+        displaySearchResults(products) {
+            const $results = $('#wooai-search-results');
+            $results.empty();
+            
+            products.slice(0, 6).forEach(product => {
+                // Truncate long product names
+                const truncatedName = this.truncateProductName(product.name);
+                
+                const $card = $(`
+                    <div class="wooai-search-result-item">
+                        <img src="${product.image || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'60\' height=\'60\'%3E%3Crect fill=\'%23f3f4f6\' width=\'60\' height=\'60\'/%3E%3C/svg%3E'}" 
+                             class="wooai-search-thumb" />
+                        <div class="wooai-search-info">
+                            <div class="wooai-search-name" title="${this.escapeHtml(product.name)}">${truncatedName}</div>
+                            <div class="wooai-search-price">${product.price}</div>
+                        </div>
+                        <a href="${product.url}" class="wooai-search-view" target="_blank">View</a>
+                    </div>
+                `);
+                $results.append($card);
+            });
+        },
+        
+        truncateProductName(name) {
+            // Split by space and take first 3 words
+            const words = name.split(' ');
+            if (words.length <= 3) {
+                return name;
+            }
+            return words.slice(0, 3).join(' ') + '...';
+        },
+        
+        showPolicies() {
+            this.showTyping();
+            
+            $.ajax({
+                url: this.config.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'wooai_get_all_policies',
+                    nonce: this.config.nonce
+                },
+                success: (response) => {
+                    this.hideTyping();
+                    if (response.success && response.data.policies.length > 0) {
+                        this.displayPoliciesTabs(response.data.policies);
+                    } else {
+                        this.addMessage('ai', 'No policies available at the moment.');
+                    }
+                },
+                error: () => {
+                    this.hideTyping();
+                    this.addMessage('ai', 'Could not load policies. Please try again.');
+                }
+            });
+        },
+        
+        displayPoliciesTabs(policies) {
+            const $policiesWidget = $(`
+                <div class="wooai-policies-widget">
+                    <div class="wooai-policies-tabs"></div>
+                    <div class="wooai-policies-content"></div>
+                </div>
+            `);
+            
+            const $tabs = $policiesWidget.find('.wooai-policies-tabs');
+            const $content = $policiesWidget.find('.wooai-policies-content');
+            
+            policies.forEach((policy, index) => {
+                const $tab = $(`
+                    <button class="wooai-policy-tab ${index === 0 ? 'active' : ''}" data-policy-id="${policy.id}">
+                        ${policy.title}
+                    </button>
+                `);
+                
+                $tab.on('click', function() {
+                    $('.wooai-policy-tab').removeClass('active');
+                    $(this).addClass('active');
+                    WooAI.showPolicyContent(policy, $content);
+                });
+                
+                $tabs.append($tab);
+            });
+            
+            this.$messages.append($policiesWidget);
+            this.showPolicyContent(policies[0], $content);
+            this.scrollToBottom();
+        },
+        
+        showPolicyContent(policy, $container) {
+            $container.html(`
+                <div class="wooai-policy-detail">
+                    <h4>${policy.title}</h4>
+                    <p>${policy.summary}</p>
+                    <a href="${policy.url}" target="_blank" class="wooai-policy-full-link">
+                        Read Full Policy →
+                    </a>
+                </div>
+            `);
+        },
+        
+        sendMessage() {
+            const message = this.$input.val().trim();
+            if (!message) return;
+            
+            this.addMessage('user', message);
+            this.$input.val('');
+            
+            this.sendMessageToAI(message);
+        },
+        
+        sendMessageToAI(message) {
+            this.showTyping();
+            
+            $.ajax({
+                url: this.config.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'wooai_send_message',
+                    nonce: this.config.nonce,
+                    message: message,
+                    session_id: this.config.session_id,
+                    geolocation: this.config.geolocation
+                },
+                success: (response) => {
+                    this.hideTyping();
+                    if (response.success) {
+                        this.handleResponse(response.data);
+                    } else {
+                        this.addMessage('ai', 'Sorry, something went wrong. Please try again.');
+                    }
+                },
+                error: () => {
+                    this.hideTyping();
+                    this.addMessage('ai', 'Sorry, I\'m having trouble connecting. Please try again.');
+                }
+            });
+        },
+        
+        handleResponse(response) {
+            if (response.type === 'text') {
+                this.addMessage('ai', response.message);
+            } else if (response.type === 'products') {
+                this.addMessage('ai', response.message);
+                this.getProducts(response.category);
+            } else if (response.type === 'callback') {
+                this.addMessage('ai', response.message);
+                this.showCallbackForm();
+            }
+        },
+        
+        getProducts(category) {
+            this.showTyping();
+            
+            $.ajax({
+                url: this.config.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'wooai_get_products',
+                    nonce: this.config.nonce,
+                    category: category
+                },
+                success: (response) => {
+                    this.hideTyping();
+                    if (response.success && response.data.products.length > 0) {
+                        this.displayProducts(response.data.products);
+                    } else {
+                        this.addMessage('ai', 'No products found in this category yet.');
+                    }
+                },
+                error: () => {
+                    this.hideTyping();
+                    this.addMessage('ai', 'Sorry, I couldn\'t load the products.');
+                }
+            });
+        },
+        
+        displayProducts(products) {
+            products.forEach(product => {
+                // Truncate long product names
+                const truncatedName = this.truncateProductName(product.name);
+                
+                const $card = $(`
+                    <div class="wooai-product-card">
+                        <img src="${product.image || 'data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'150\'%3E%3Crect fill=\'%23f3f4f6\' width=\'200\' height=\'150\'/%3E%3C/svg%3E'}" 
+                             alt="${product.name}" class="wooai-product-img" />
+                        <div class="wooai-product-info">
+                            <div class="wooai-product-name" title="${this.escapeHtml(product.name)}">${truncatedName}</div>
+                            <div class="wooai-product-price">${product.price}</div>
+                            <a href="${product.url}" class="wooai-product-link" target="_blank">View Product</a>
+                        </div>
+                    </div>
+                `);
+                this.$messages.append($card);
+            });
+            
+            this.scrollToBottom();
+        },
+        
+        showCallbackForm() {
+            const $form = $(`
+                <div class="wooai-callback-form">
+                    <div class="wooai-form-group">
+                        <label class="wooai-form-label">Name</label>
+                        <input type="text" class="wooai-form-input" id="cb-name" placeholder="Your name" />
+                    </div>
+                    <div class="wooai-form-group">
+                        <label class="wooai-form-label">Phone Number</label>
+                        <input type="tel" class="wooai-form-input" id="cb-phone" placeholder="Your phone" />
+                    </div>
+                    <div class="wooai-form-group">
+                        <label class="wooai-form-label">Email (optional)</label>
+                        <input type="email" class="wooai-form-input" id="cb-email" placeholder="Your email" />
+                    </div>
+                    <button type="button" class="wooai-form-submit" id="cb-submit">Request Callback</button>
+                </div>
+            `);
+            
+            this.$messages.append($form);
+            this.scrollToBottom();
+            
+            $('#cb-submit').on('click', () => this.submitCallback());
+        },
+        
+        submitCallback() {
+            const name = $('#cb-name').val().trim();
+            const phone = $('#cb-phone').val().trim();
+            const email = $('#cb-email').val().trim();
+            
+            if (!name || !phone) {
+                alert('Please fill in your name and phone number.');
+                return;
+            }
+            
+            $.ajax({
+                url: this.config.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'wooai_submit_callback',
+                    nonce: this.config.nonce,
+                    name: name,
+                    phone: phone,
+                    email: email,
+                    session_id: this.config.session_id
+                },
+                success: (response) => {
+                    if (response.success) {
+                        $('.wooai-callback-form').remove();
+                        this.addMessage('ai', '✅ Thanks! We\'ve received your request. Our team will call you shortly.');
+                    }
+                }
+            });
+        },
+        
+        addMessage(type, message) {
+            const isUser = type === 'user';
+            const $message = $(`
+                <div class="wooai-message ${isUser ? 'wooai-user' : 'wooai-ai'}">
+                    ${!isUser ? '<div class="wooai-avatar-sm">W</div>' : ''}
+                    <div class="wooai-bubble">${this.escapeHtml(message)}</div>
+                    ${isUser ? '<div class="wooai-avatar-sm">U</div>' : ''}
+                </div>
+            `);
+            
+            this.$messages.append($message);
+            this.scrollToBottom();
+        },
+        
+        showTyping() {
+            const $typing = $(`
+                <div class="wooai-message wooai-ai" id="wooai-typing">
+                    <div class="wooai-avatar-sm">W</div>
+                    <div class="wooai-bubble wooai-typing">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            `);
+            this.$messages.append($typing);
+            this.scrollToBottom();
+        },
+        
+        hideTyping() {
+            $('#wooai-typing').remove();
+        },
+        
+        scrollToBottom() {
+            this.$messages.scrollTop(this.$messages[0].scrollHeight);
+        },
+        
+        showMyAccountInChat() {
+            this.addMessage('ai', 'Loading your account information...');
+            
+            $.ajax({
+                url: this.config.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'wooai_get_account_tabs',
+                    nonce: this.config.nonce,
+                    session_id: this.config.session_id
+                },
+                success: (response) => {
+                    if (response.success) {
+                        this.displayAccountTabs(response.data);
+                    } else {
+                        this.addMessage('ai', 'Please log in to view your account.');
+                    }
+                },
+                error: () => {
+                    this.addMessage('ai', 'Could not load account information. Please try again.');
+                }
+            });
+        },
+        
+        displayAccountTabs(data) {
+            const $widget = $(`
+                <div class="wooai-account-widget">
+                    <div class="wooai-account-tabs">
+                        <button class="wooai-account-tab active" data-tab="info">
+                            📋 Account Info
+                        </button>
+                        <button class="wooai-account-tab" data-tab="orders">
+                            📦 Orders
+                        </button>
+                        <button class="wooai-account-tab" data-tab="addresses">
+                            📍 Addresses
+                        </button>
+                    </div>
+                    <div class="wooai-account-content" id="account-content">
+                        ${this.getAccountInfoHTML(data)}
+                    </div>
+                </div>
+            `);
+            
+            this.$messages.append($widget);
+            
+            $('.wooai-account-tab').on('click', (e) => {
+                $('.wooai-account-tab').removeClass('active');
+                $(e.target).addClass('active');
+                
+                const tab = $(e.target).data('tab');
+                if (tab === 'info') {
+                    $('#account-content').html(this.getAccountInfoHTML(data));
+                } else if (tab === 'orders') {
+                    this.loadOrdersTab();
+                } else if (tab === 'addresses') {
+                    this.loadAddressesTab();
+                }
+            });
+            
+            this.scrollToBottom();
+        },
+        
+        getAccountInfoHTML(data) {
+            return `
+                <div class="wooai-account-info">
+                    <div class="wooai-info-row">
+                        <strong>Name:</strong> ${data.display_name || 'N/A'}
+                    </div>
+                    <div class="wooai-info-row">
+                        <strong>Email:</strong> ${data.user_email || 'N/A'}
+                    </div>
+                    <div class="wooai-info-row">
+                        <strong>Member Since:</strong> ${data.user_registered || 'N/A'}
+                    </div>
+                    <div class="wooai-info-row">
+                        <strong>Total Orders:</strong> ${data.order_count || 0}
+                    </div>
+                </div>
+            `;
+        },
+        
+        showOrdersInChat() {
+            this.addMessage('ai', 'Loading your orders...');
+            this.loadOrdersTab();
+        },
+        
+        loadOrdersTab() {
+            $.ajax({
+                url: this.config.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'wooai_get_user_orders',
+                    nonce: this.config.nonce,
+                    session_id: this.config.session_id
+                },
+                success: (response) => {
+                    if (response.success && response.data.orders) {
+                        $('#account-content').html(this.getOrdersHTML(response.data.orders));
+                    } else {
+                        $('#account-content').html('<p style="padding:20px;text-align:center;color:#6B7280;">No orders found.</p>');
+                    }
+                }
+            });
+        },
+        
+        getOrdersHTML(orders) {
+            if (!orders || orders.length === 0) {
+                return '<p style="padding:20px;text-align:center;color:#6B7280;">No orders yet.</p>';
+            }
+            
+            return orders.map(order => `
+                <div class="wooai-order-card">
+                    <div class="wooai-order-header">
+                        <div class="wooai-order-number">Order #${order.id}</div>
+                        <div class="wooai-order-status ${order.status}">${order.status}</div>
+                    </div>
+                    <div class="wooai-order-date">${order.date}</div>
+                    <div class="wooai-order-total"><strong>Total:</strong> ${order.total}</div>
+                    <div class="wooai-order-items">
+                        <strong>Items:</strong> ${order.item_count} item(s)
+                    </div>
+                    <div class="wooai-order-actions">
+                        <a href="${order.view_url}" target="_blank" class="wooai-btn-small">View Details</a>
+                    </div>
+                </div>
+            `).join('');
+        },
+        
+        loadAddressesTab() {
+            $.ajax({
+                url: this.config.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'wooai_get_user_addresses',
+                    nonce: this.config.nonce,
+                    session_id: this.config.session_id
+                },
+                success: (response) => {
+                    if (response.success) {
+                        $('#account-content').html(this.getAddressesHTML(response.data));
+                    }
+                }
+            });
+        },
+        
+        getAddressesHTML(data) {
+            return `
+                <div class="wooai-addresses">
+                    <div class="wooai-address-section">
+                        <h4>Billing Address</h4>
+                        <div class="wooai-address-content">
+                            ${data.billing || 'No billing address set.'}
+                        </div>
+                    </div>
+                    <div class="wooai-address-section">
+                        <h4>Shipping Address</h4>
+                        <div class="wooai-address-content">
+                            ${data.shipping || 'No shipping address set.'}
+                        </div>
+                    </div>
+                </div>
+            `;
+        },
+        
+        escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+    };
+    
+    $(document).ready(() => WooAI.init());
+    
+})(jQuery);

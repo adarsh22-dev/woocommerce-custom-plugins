@@ -1,0 +1,97 @@
+.fbt-section {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background: #fff;
+}
+
+.fbt-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px; /* Consistent spacing */
+}
+
+.fbt-products {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between items */
+    overflow-x: auto; /* Horizontal scroll for mobile */
+    -webkit-overflow-scrolling: touch; /* Smooth mobile scrolling */
+    scroll-behavior: smooth; /* Smooth scrolling */
+    max-width: 70%; /* Limit width for better layout */
+    padding-bottom: 10px; /* Space for scrollbar */
+}
+
+.fbt-product {
+    text-align: center;
+    flex: 0 0 auto; /* Prevent shrinking */
+    min-width: 120px; /* Consistent minimum width */
+}
+
+.fbt-product img {
+    max-width: 100px;
+    height: auto; /* Maintain aspect ratio */
+}
+
+.fbt-separator {
+    font-size: 24px;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.fbt-total-section {
+    text-align: center;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px; /* Space between total and button */
+}
+
+.fbt-total {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.fbt-add-to-cart {
+    padding: 10px 20px;
+    background: #05b895;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s; /* Smooth hover transition */
+}
+
+.fbt-add-to-cart:hover {
+    background: #000;
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+    .fbt-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .fbt-products {
+        flex-wrap: nowrap;
+        max-width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .fbt-total-section {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .fbt-product {
+        min-width: 150px;
+    }
+
+    .fbt-add-to-cart {
+        width: auto;
+        padding: 8px 15px; /* Reduced padding for mobile */
+    }
+}

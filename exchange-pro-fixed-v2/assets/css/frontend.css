@@ -1,0 +1,168 @@
+/* Exchange Pro Frontend Styles */
+
+/* Fix Bootstrap backdrop blocking clicks when theme/plugins override z-index */
+.modal-backdrop {
+  z-index: 9998 !important;
+}
+
+#exchangeProModal {
+  z-index: 9999 !important;
+}
+
+/* Make the popup feel more like a polished product UI */
+.exchange-pro-modal .modal-dialog {
+    max-width: 520px;
+}
+
+.exchange-pro-modal .modal-content {
+    border: 0;
+    border-radius: 16px;
+    box-shadow: 0 18px 60px rgba(0,0,0,0.25);
+    overflow: hidden;
+}
+
+.exchange-pro-modal .modal-header {
+    border: 0;
+    padding: 18px 20px;
+}
+
+.exchange-pro-modal .modal-body {
+    padding: 20px;
+}
+
+.exchange-pro-modal .btn-close {
+    opacity: 0.85;
+}
+
+.exchange-pro-modal .btn-close:hover {
+    opacity: 1;
+}
+
+.exchange-pro-modal .form-select,
+.exchange-pro-modal .form-control {
+    border-radius: 10px;
+}
+
+.exchange-pro-modal .category-card,
+.exchange-pro-modal .model-card,
+.exchange-pro-modal .condition-card {
+    background: #fff;
+}
+
+.exchange-pro-product-button {
+    margin: 20px 0;
+}
+
+.exchange-pro-details tr {
+    border-top: 1px solid #e0e0e0;
+}
+
+.exchange-pro-order-data {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-left: 4px solid #ff6600;
+    border-radius: 4px;
+}
+
+.exchange-pro-order-data h3 {
+    margin-top: 0;
+    color: #ff6600;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.exchange-pro-order-data table {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.exchange-pro-order-data table th {
+    font-weight: 600;
+    padding: 8px 12px;
+    width: 200px;
+    color: #2c3e50;
+}
+
+.exchange-pro-order-data table td {
+    padding: 8px 12px;
+    color: #555;
+}
+
+/* Modal animations */
+.modal.fade .modal-dialog {
+    transform: scale(0.8);
+    opacity: 0;
+    transition: all 0.3s ease-out;
+}
+
+/*
+ * Bootstrap modal backdrop fix:
+ * We tag our backdrops via JS to avoid messing with other modals on the site.
+ */
+.modal-backdrop.exchange-pro-backdrop {
+    z-index: 9998 !important;
+}
+
+.modal.exchange-pro-modal {
+    z-index: 9999 !important;
+}
+
+/* Ensure backdrop never eats clicks after modal close */
+.modal-backdrop.exchange-pro-backdrop {
+    pointer-events: none;
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Card animations */
+.category-card,
+.brand-card,
+.model-card,
+.condition-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.category-card:hover,
+.brand-card:hover,
+.model-card:hover,
+.condition-card:hover:not(.disabled) {
+    transform: translateY(-4px);
+}
+
+/* Loading spinner */
+.spinner-border {
+    color: #ff6600;
+}
+
+/* Form controls */
+.form-control:focus,
+.form-select:focus {
+    border-color: #ff6600;
+    box-shadow: 0 0 0 0.2rem rgba(255, 102, 0, 0.25);
+}
+
+.form-check-input:checked {
+    background-color: #ff6600;
+    border-color: #ff6600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .modal-dialog {
+        margin: 10px;
+    }
+    
+    .modal-body {
+        padding: 20px !important;
+    }
+    
+    .category-card,
+    .brand-card,
+    .model-card {
+        padding: 16px !important;
+    }
+}
